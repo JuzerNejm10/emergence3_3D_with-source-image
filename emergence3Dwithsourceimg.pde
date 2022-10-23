@@ -10,7 +10,7 @@ float strokeW = random(0.2, 1.2);
 String bckground="";
 int opacity;
 
-PImage courbet;
+PImage source;
 
 void setup() {
   strokeWeight(strokeW);
@@ -28,9 +28,9 @@ void setup() {
 }
 
 void settings() {
-  courbet = loadImage("courbet.jpg");
-  w = courbet.width;
-  h = courbet.height;
+  source = loadImage("courbet.jpg");
+  w = source.width;
+  h = source.height;
   size(w, h, P3D);
   smooth(4);
 }
@@ -39,7 +39,7 @@ void draw () {
   if (bckground == "color") {
     background(255);
   } else {
-    image(courbet, 0, 0);
+    image(source, 0, 0);
   }
 
   float randRad = random(1, 17.1);
@@ -88,9 +88,9 @@ void dP(int x, int y, float noiseF) {
   pushMatrix();
   translate(x, y);
   rotate(noiseF * radians(rad));
-  color c = courbet.get(int(x), int(y));
+  color c = source.get(int(x), int(y));
   opacity = (int)random(50, 256);
-  stroke(c, opacity);
+  stroke(c, opacity);      
   line(0, 0, lineLength, 0);
   popMatrix();
 }
