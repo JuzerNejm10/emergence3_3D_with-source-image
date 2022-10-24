@@ -70,23 +70,39 @@ void draw () {
 
   xstartNoise+=0.1;
   ystartNoise+=0.1;
-  xstart+=(noise(xstartNoise)*0.1);
+  xstart+=(noise(xstartNoise)*0.3);
   ystart+=(noise(ystartNoise)*0.1)-0.1;
   xnoise = xstart;
   ynoise = ystart;
+  int z;
   for (int y = 0; y <= height; y+=5) {
     ynoise += 0.01;
     xnoise = xstart;
     for (int x = 0; x <= width; x+=7) {
       xnoise += 0.01;
-      dP(x, y, noise(xnoise, ynoise));
+      z = (int)random(0, (y-x)*2);
+      if (xstartNoise>8) {
+        dP2D(x, y, noise(xnoise, ynoise));
+      } else {
+        dP3D(x, y, z, noise(xnoise, ynoise));
+      }
     }
   }
 }
 
-void dP(int x, int y, float noiseF) {
+void dP2D(int x, int y, float noiseF) {
   pushMatrix();
-  translate(x, y);
+  translate(x, y);  
+  stuff(x, y, noiseF);
+}
+
+void dP3D(int x, int y, int z, float noiseF) {
+  pushMatrix();
+  translate(x, y, z);
+  stuff(x, y, noiseF);
+}
+
+void stuff(int x, int y, float noiseF) {
   rotate(noiseF * radians(rad));
   color c = source.get(int(x), int(y));
   opacity = (int)random(50, 256);
