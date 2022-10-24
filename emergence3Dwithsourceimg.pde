@@ -80,7 +80,7 @@ void draw () {
     xnoise = xstart;
     for (int x = 0; x <= width; x+=7) {
       xnoise += 0.01;
-      z = (int)random(0, (y-x)*2);
+      z = (int)random(0, (x-y)*2);
       if (xstartNoise>8) {
         dP2D(x, y, noise(xnoise, ynoise));
       } else {
